@@ -1281,12 +1281,13 @@ $$
 ($c$) $P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right) = 1 \Leftrightarrow w_i^- \geq w_j^+$
 ($d$) $P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right) = 0 \Leftrightarrow w_i^+ \leq w_j^-$
 ($e$) $P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right) \geq 0.5 \Leftrightarrow \sqrt{w_i^- w_i^+} \geq \sqrt{w_j^- w_j^+}$
+($f$) $P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right) \geq 0.5 ~ \text{and} ~ P_{M}\left(\bar{w}_{j} \geq \bar{w}_{k}\right) \geq 0.5 \Rightarrow P_{M}\left(\bar{w}_{i} \geq \bar{w}_{k}\right) \geq 0.5$
 
 ---
 
 **証明**
 
-($f$) $P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right) + P_{M}\left(\bar{w}_{j} \geq \bar{w}_{i}\right) = 1$
+($b$) $P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right) + P_{M}\left(\bar{w}_{j} \geq \bar{w}_{i}\right) = 1$
 
 $$
 \begin{align*}
@@ -1321,7 +1322,7 @@ $$
 
 ---
 
-($b$) $P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right) \geq 0.5 \Leftrightarrow \sqrt{w_i^- w_i^+} \geq \sqrt{w_j^- w_j^+}$
+($e$) $P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right) \geq 0.5 \Leftrightarrow \sqrt{w_i^- w_i^+} \geq \sqrt{w_j^- w_j^+}$
 
 $$
 \begin{align*}
@@ -1336,7 +1337,7 @@ $$
 \end{dcases} \\
 \Leftrightarrow & ~~
 w_i^- \geq w_j^+ ~~ \text{or} ~~
-\left( w_i^+ \geq w_j^- ~~ \text{and} ~~ 0.5 \ln (w_j^- w_j^+) \leq 0.5 \ln (w_i^- w_i^+) \right) \\
+\left( w_i^+ \geq w_j^- ~~ \text{and} ~~ 0.5 (\ln w_j^- + \ln w_j^+) \leq 0.5 (\ln w_i^- + \ln w_i^+) \right) \\
 \Leftrightarrow & ~~
 w_i^- \geq w_j^+ ~~ \text{or} ~~
 \left( w_i^+ \geq w_j^- ~~ \text{and} ~~ \sqrt{w_i^- w_i^+} \geq \sqrt{w_j^- w_j^+} \right) \\
@@ -1348,6 +1349,26 @@ w_i^- \geq w_j^+ ~~ \text{or} ~~
 \sqrt{w_i^- w_i^+} \geq \sqrt{w_j^- w_j^+}
 \end{align*}
 $$
+
+<!-- ---
+
+($f$) $P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right) \geq 0.5 ~ \text{and} ~ P_{M}\left(\bar{w}_{j} \geq \bar{w}_{k}\right) \geq 0.5 \Rightarrow P_{M}\left(\bar{w}_{i} \geq \bar{w}_{k}\right) \geq 0.5$
+
+$$
+\begin{align*}
+& P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right) \geq 0.5
+~ \text{and} ~
+P_{M}\left(\bar{w}_{j} \geq \bar{w}_{k}\right) \geq 0.5 \\
+\Rightarrow & ~~~
+\sqrt{w_i^- w_i^+} \geq \sqrt{w_j^- w_j^+}
+~ \text{and} ~
+\sqrt{w_j^- w_j^+} \geq \sqrt{w_k^- w_k^+} \\
+\Rightarrow & ~~~
+\sqrt{w_i^- w_i^+} \geq \sqrt{w_k^- w_k^+} \\
+\Rightarrow & ~~~
+P_{M}\left(\bar{w}_{i} \geq \bar{w}_{k}\right) \geq 0.5
+\end{align*}
+$$ -->
 
 ---
 
@@ -1406,10 +1427,10 @@ $P$ から, $\xi_{1}=3.5, \xi_{2}=2.0702, \xi_{3}=0.5551, \xi_{4}= 1.8747$ が�
 
 ---
 
-$\bar{A}_2$ の不確定性指数 (\mathrm{II}) は, $\mathrm{II}(\bar{A}_2) = 2.3762$ である.
+$\bar{A}_2$ の不確定性指数 ($\mathrm{II}(*)$) は, $\mathrm{II}(\bar{A}_2) = 2.3762$ である.
 
 $\bar{A}_2^* = (\bar{w}_i^* / \bar{w}_j^*)$ とする.
-この行列の不確定性指数 (\mathrm{II}) と元の行列 $\bar{A}_2$ との類似度 ($\mathrm{DR}(\bar{A}_2, *)$) を計算する.
+この行列の不確定性指数 ($\mathrm{II}(*)$) と元の行列 $\bar{A}_2$ との類似度 ($\mathrm{DR}(\bar{A}_2, *)$) を計算する.
 
 $$
 \mathrm{II}(\bar{A}_2^*) = 2.3763, ~~
@@ -1428,7 +1449,7 @@ $$
 \mathrm{DR}(\bar{A}_2, \bar{A}^\mathrm{Wang}) = 1.2535
 $$
 
-不確定性指数 ($\mathrm{II}$) は, $\bar{A}_2^*$ が最も小さい値をとる. これは, $\bar{A}_2^*$ が最も区間の幅が小さい, 明確な結果を与えることを意味する.
+不確定性指数 ($\mathrm{II}(*)$) は, $\bar{A}_2^*$ が最も小さい値をとる. これは, $\bar{A}_2^*$ が最も区間の幅が小さい, 明確な結果を与えることを意味する.
 
 また, $\mathrm{DR}(\bar{A}_2, *)$ は, $\bar{A}_2^*$ が最も小さい値をとる. これは, $\bar{A}_2^*$ が最も $\bar{A}_2$ に近いことを意味する.
 
