@@ -884,7 +884,7 @@ $$
 
 ## 4.2. Indeterminacy measurement and acceptability of IMCMS
 
-### Lemma 4.1. (Horn and Johnson, 1985)
+### Lemma 4.1. (Collatz–Wielandt の公式)
 
 $T = (t_{ij})$ を成分が正の正方行列とし, $\lambda_{\max}^T$ を $T$ の最大固有値とする.
 $R_n^+ = \left\{ Y = (y_i) ~~ | ~~ y_i > 0, ~ i = 1,2,\dots,n \right\}$ とする.
@@ -898,26 +898,37 @@ $$
 
 **証明**
 
-Perron–Frobenius の定理を認めてそこから導く.
-Perron–Frobenius の定理から, $T$ は正の最大固有値 $\lambda_{\max}^T$ と, $\lambda_{\max}^T$ に対応する正の固有ベクトル $\tilde{X} = (\tilde{x}_i)$ をもつ.
-$Y = (y_i)$ を任意の正のベクトル ($Y \in R_n^+$) とする.
+$f(Y) = \max_{i = 1,2,\dots,n} \sum_{j = 1}^n t_{ij} \frac{y_j}{y_i}$ とする.
+
+$TY$ の第 $i$ 成分を $s_i$ とすると, $s_i = \sum_{j = 1}^n t_{ij} y_j$.
+$f(Y)Y$ の第 $i$ 成分は $y_i \max_{k} \sum_{j = 1}^n t_{kj} \frac{y_j}{y_k}$ である.
+
+$$
+y_i \max_{k} \sum_{j = 1}^n t_{kj} \frac{y_j}{y_k}
+= \max_{k} \frac{y_i}{y_k} \sum_{j = 1}^n t_{kj} y_j
+= \max_{k} \frac{y_i}{y_k} s_k
+$$
 
 $$
 \begin{align*}
-& T \tilde{X} = \lambda_{\max}^T \tilde{X} \\
-\Leftrightarrow & ~~~
-\sum_{j = 1}^n t_{ij} \tilde{x}_j = \lambda_{\max}^T \tilde{x}_i,
-&& i = 1,2,\dots,n \\
-\Leftrightarrow & ~~~
-\lambda_{\max}^T = \sum_{j = 1}^n t_{ij} \frac{\tilde{x}_j}{\tilde{x}_i},
-&& i = 1,2,\dots,n
-&& \left( \because \tilde{x}_i > 0,  ~ i = 1,2,\dots,n \right) \\
-% \Rightarrow & ~~~
-% \sum_{j = 1}^n t_{ij} \frac{y_j}{y_i} \leq \lambda_{\max}^T \max_i \frac{y_i}{\tilde{x}_i},
-% && i = 1,2,\dots,n
-% && \left( \because \frac{y_i}{\tilde{x}_i} \leq \max_i \frac{y_i}{\tilde{x}_i}, ~ i = 1,2,\dots,n \right) \\
+f(Y) Y \geq T Y
+& \Leftrightarrow
+\max_{k} \frac{y_i}{y_k} s_k \geq s_i \\
+& \Leftrightarrow
+\max_{k} \frac{s_k}{y_k} \geq \frac{s_i}{y_i}
+&& (\because y_i > 0) \\
 \end{align*}
-$$ 
+$$
+
+$\max_{k} \frac{s_k}{y_k} \geq \frac{s_i}{y_i}$ は明らかに成り立つ. よって, $f(Y) Y \geq T Y$ が成り立つ.
+Perron–Frobenius の定理から, $\lambda_{\max}^T$ に対する左側固有ベクトル $p$ が存在し, $p > 0$ である.
+
+$$
+f(Y) Y \geq T Y
+\Rightarrow f(Y) p^T Y \geq p^T T Y = \lambda_{\max}^T p^T Y
+\Rightarrow f(Y) \geq \lambda_{\max}^T \\
+\Rightarrow \lambda_{\max}^T = \min_{Y \in R_n^+} f(Y) = \min_{Y \in R_n^+} \max_{i = 1,2,\dots,n} \sum_{j = 1}^n t_{ij} \frac{y_j}{y_i}
+$$
 
 --- 
 
