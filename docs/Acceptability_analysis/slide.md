@@ -110,7 +110,34 @@ European Journal of Operational Research 250 (2016) 628–638
 
 ### crisp な比較行列の整合性
 
-- crisp PCM の整合性指標に関する 5 つの公理 (Brunelli and Fedrizzi, 2014)
+- crisp PCM の整合性指標 (CI 等) に関する 5 つの公理 (Brunelli and Fedrizzi, 2014)
+  1. (完全に) 整合している状態に対応する唯一の値がある
+  2. 代替案の並びを変えても整合性指標の値は変わらない
+  3. 逆数性を保存する操作を各成分に施した場合の単調性
+    必要十分条件）
+    $A$ を PCM とし, $b > 1$ とする. また, $A(b) = (a_{ij}^b)$ とする. $I$ を整合性指標とする.
+    $$
+    I(A(b)) \geq I(A), ~~ \forall b, A
+    $$
+  4. 一対比較に対する単調性
+    例）
+    このとき, $I(A^{\prime\prime}) > I(A^\prime) > I(A)$ である.
+    $$
+    A = \begin{pmatrix}
+      1 & 2 & 4 \\
+      1/2 & 1 & 2 \\
+      1/4 & 1/2 & 1
+    \end{pmatrix}, ~~ A^\prime = \begin{pmatrix}
+      1 & 2 & 5 \\
+      1/2 & 1 & 2 \\
+      1/5 & 1/2 & 1
+    \end{pmatrix}, ~~ A^{\prime\prime} = \begin{pmatrix}
+      1 & 2 & 6 \\
+      1/2 & 1 & 2 \\
+      1/6 & 1/2 & 1
+    \end{pmatrix}
+    $$
+  6. 連続性
 
 ---
 
@@ -157,7 +184,7 @@ European Journal of Operational Research 250 (2016) 628–638
 
 - Liu, 2009
   $\bar{A} = (\bar{a}_{ij}) = ([ \bar{a}^-_{ij}, \bar{a}^+_{ij}])$ を区間一対比較行列とする.
-  $A^\mathrm{L} = (a_{ij}^\mathrm{L}), ~ A^\mathrm{U} = (a_{ij}^\mathrm{U}$ を次のように定める.
+  $A^\mathrm{L} = (a_{ij}^\mathrm{L}), ~ A^\mathrm{U} = (a_{ij}^\mathrm{U})$ を次のように定める.
   $$
   a_{i j}^{L} = \left\{
     \begin{array}{ll}
@@ -187,6 +214,23 @@ European Journal of Operational Research 250 (2016) 628–638
 ### IMCM から重みを求める方法
 
 - Wang, Yang and Xu, 2005a
+    $\bar{A} = (\bar{a}_{ij}) = ([ \bar{a}^-_{ij}, \bar{a}^+_{ij}])$ を区間一対比較行列とする.
+    crisp な重み $w = (w_i)$ を $w_i / w_j$ が $\bar{a}_{ij}$ に可能であれば含まれるように, そうでなければできるだけ近くなるように求める.
+    $$
+    \begin{align*}
+    \mathrm{minimize} ~~ & ~~
+    \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n (p_{ij} + q_{ij}) \\
+    \text{subject to} ~~ & ~~
+    \ln w_i - \ln w_j + p_{ij} \geq \ln \bar{a}_{ij}^-, \quad
+    i, j = 1,2,\dots,n, \\ & ~~
+    \ln w_i - \ln w_j - q_{ij} \leq \ln \bar{a}_{ij}^+, \quad
+    i, j = 1,2,\dots,n, \\ & ~~
+    \sum_{i=1}^n w_i = 1, \\ & ~~
+    p_{ij}, q_{ij} \geq 0, ~~
+    p_{ij} q_{ij} = 0, \quad
+    i, j = 1,2,\dots,n.
+    \end{align*}
+    $$
 
 ---
 
@@ -220,6 +264,28 @@ European Journal of Operational Research 250 (2016) 628–638
 ### IMCM から重みを求める方法
 
 - Liu, 2009
+  $\bar{A} = (\bar{a}_{ij}) = ([ \bar{a}^-_{ij}, \bar{a}^+_{ij}])$ を区間一対比較行列とする.
+  $A^\mathrm{L} = (a_{ij}^\mathrm{L}), ~ A^\mathrm{U} = (a_{ij}^\mathrm{U})$ を次のように定める.
+  $$
+  a_{i j}^{L} = \left\{
+    \begin{array}{ll}
+    a_{i j}^{-} & i<j \\
+    1 & i=j, \\
+    a_{i j}^{+} & i>j
+  \end{array} \quad a_{i j}^{U} = \begin{cases}
+    a_{i j}^{+} & i<j \\
+    1 & i=j \\
+    a_{i j}^{-} & i>j
+  \end{cases}\right.
+  $$
+
+  $A^\mathrm{L}, A^\mathrm{U}$ それぞれから重み $w^\mathrm{L} = (w_i^\mathrm{L}), w^\mathrm{U} = (w_i^\mathrm{U})$ を求める.
+  区間重み $\bar{W} = ([w_i^-, w_i^+])$ を次のように定める.
+  $$
+  w_i^- = \min (w_i^\mathrm{L}, w_i^\mathrm{U}), ~~
+  w_i^+ = \max (w_i^\mathrm{L}, w_i^\mathrm{U}), \quad
+  i = 1,2,\dots,n
+  $$
 
 ---
 
@@ -828,11 +894,30 @@ $$
 \lambda_{\max}^T = \min_{Y \in R_n^+} \max_{i = 1,2,\dots,n} \sum_{j = 1}^n t_{ij} \frac{y_j}{y_i}
 $$
 
-<!-- **証明**
+---
 
-Perron–Frobenius の定理から, $T$ は正の最大固有値 $\lambda_{\max}^T$ と, 対応する正の固有ベクトル $\bar{X} = (\bar{x}_i)$ をもつ.
-$T X = \lambda_{\max}^T X$ から, $i = 1,2,\dots,n$ に対して $\sum_{j = 1}^n t_{ij} \bar{x}_j = \lambda_{\max}^T \bar{x}_i$ が成り立つ. -->
+**証明**
 
+Perron–Frobenius の定理を認めてそこから導く.
+Perron–Frobenius の定理から, $T$ は正の最大固有値 $\lambda_{\max}^T$ と, $\lambda_{\max}^T$ に対応する正の固有ベクトル $\tilde{X} = (\tilde{x}_i)$ をもつ.
+$Y = (y_i)$ を任意の正のベクトル ($Y \in R_n^+$) とする.
+
+$$
+\begin{align*}
+& T \tilde{X} = \lambda_{\max}^T \tilde{X} \\
+\Leftrightarrow & ~~~
+\sum_{j = 1}^n t_{ij} \tilde{x}_j = \lambda_{\max}^T \tilde{x}_i,
+&& i = 1,2,\dots,n \\
+\Leftrightarrow & ~~~
+\lambda_{\max}^T = \sum_{j = 1}^n t_{ij} \frac{\tilde{x}_j}{\tilde{x}_i},
+&& i = 1,2,\dots,n
+&& \left( \because \tilde{x}_i > 0,  ~ i = 1,2,\dots,n \right) \\
+% \Rightarrow & ~~~
+% \sum_{j = 1}^n t_{ij} \frac{y_j}{y_i} \leq \lambda_{\max}^T \max_i \frac{y_i}{\tilde{x}_i},
+% && i = 1,2,\dots,n
+% && \left( \because \frac{y_i}{\tilde{x}_i} \leq \max_i \frac{y_i}{\tilde{x}_i}, ~ i = 1,2,\dots,n \right) \\
+\end{align*}
+$$ 
 
 --- 
 
@@ -943,3 +1028,481 @@ $$
 \leq \frac{\sum_{l=1}^m \alpha_l \lambda_{\max}^{(l)\mathrm{gm}} - n}{(n-1)\mathrm{RI}(n)}
 \leq 0.1
 $$
+
+---
+
+## 5. Elicitation and ranking of interval multiplicative weights
+
+### Definition 5.1.
+
+$\bar{w} = (\bar{w}_i) = ([ w_i^-, w_i^+])$ を区間重みとする.
+$\bar{w}$ が次を満たす場合, $\bar{w}$ は正規化されているという.
+
+$$
+w_i^+ \prod_{j \neq i} w_j^- \leq 1, ~~
+w_i^- \prod_{j \neq i} w_j^+ \geq 1,
+\quad i = 1,2,\dots,n
+$$
+
+次のようにも書ける.
+
+$$
+\ln w_i^+ + \sum_{j \neq i} \ln w_j^- \leq 0, ~~
+\ln w_i^- + \sum_{j \neq i} \ln w_j^+ \geq 0, \quad
+i = 1,2,\dots,n
+$$
+
+---
+
+## 5. Elicitation and ranking of interval multiplicative weights
+
+### Definition 5.2.
+
+$t_\mathrm{ur} \geq 1$ を許容可能な不確定性比率 (IR) のしきい値とする.
+$\bar{w} = (\bar{w}_i) = ([ w_i^-, w_i^+])$ を正規化区間重みとする.
+$\bar{w}$ が次を満たす場合, $\bar{w}$ は許容可能である.
+
+$$
+\frac{w_i^+ w_j^+}{w_i^- w_j^-} \leq t_\mathrm{ur},
+\quad i, j = 1,2,\dots,n, ~ i \neq j
+$$
+
+次のようにも書ける.
+
+$$
+\ln w_i^+ + \ln w_j^+ - \ln w_i^- - \ln w_j^- \leq \ln t_\mathrm{ur},
+\quad i, j = 1,2,\dots,n, ~ i \neq j
+$$
+
+---
+
+## 5. Elicitation and ranking of interval multiplicative weights
+
+$\bar{A} = (\bar{a}_{ij}) = ([ a^-_{ij}, a^+_{ij}])$ を整合している IMCM とする.
+このとき, $\bar{A}$ に対して次を満たす**許容可能な**正規化区間重み $\bar{w} = (\bar{w}_i) = ([ w_i^-, w_i^+])$ が存在するとする.
+
+$$
+a_{ij}^- = \frac{w_i^-}{w_j^+}, ~~
+a_{ij}^+ = \frac{w_i^+}{w_j^-}, \quad
+i, j = 1,2,\dots,n, ~ i \neq j
+$$
+
+$\bar{A}$ の各成分の不確定性比率 (IR) は次のように計算できる.
+
+$$
+\mathrm{IR}(\bar{a}_{ij})
+= \frac{a_{ij}^+}{a_{ij}^-}
+= \frac{w_i^+ w_j^+}{w_i^- w_j^-}
+$$
+
+$\bar{w}$ が許容可能であることから, $\mathrm{IR}(\bar{a}_{ij}) \leq t_\mathrm{ur}$ が成り立つ.
+
+$A^\mathrm{gm} = ( a_{ij}^\mathrm{gm} ) = \left( \sqrt{a_{ij}^- a_{ij}^+} \right) = \left( \sqrt{ \frac{w_i^- w_i^+}{w_j^- w_j^+} } \right)$ とする.
+
+$$
+a_{ij}^\mathrm{gm} a_{jk}^\mathrm{gm}
+= \sqrt{ \frac{w_i^- w_i^+}{w_j^- w_j^+} \frac{w_j^- w_j^+}{w_k^- w_k^+} }
+= \sqrt{ \frac{w_i^- w_i^+}{w_k^- w_k^+} }
+= a_{ik}^\mathrm{gm}
+$$
+
+このように, $A^\mathrm{gm}$ は整合しており, $\bar{A}$ もまた整合している.
+このとき, $\bar{A}$ は許容可能で整合している.
+
+---
+
+## 5. Elicitation and ranking of interval multiplicative weights
+
+$a_{ij}^- = w_i^-/w_j^+, ~a_{ij}^+ = w_i^+/w_j^-, ~~ i, j = 1,2,\dots,n, ~ i \neq j$ とすると次の関係が得られる.
+
+$$
+a_{ij}^\mathrm{gm} = \sqrt{a_{ij}^- a_{ij}^+} = \sqrt{ \frac{w_i^- w_i^+}{w_j^- w_j^+} }, ~~
+\mathrm{IR}(\bar{a}_{ij}) = \frac{a_{ij}^+}{a_{ij}^-} = \frac{w_i^+ w_j^+}{w_i^- w_j^-}, ~~
+i, j = 1,2,\dots,n, ~ i \neq j
+$$
+
+次のように書き換えられる.
+
+$$
+\begin{align*}
+\ln a_{ij}^- + \ln a_{ij}^+ & = \ln w_i^- + \ln w_i^+ - \ln w_j^- - \ln w_j^+,
+&& i, j = 1,2,\dots,n, ~ i \neq j \\
+\ln a_{ij}^+ - \ln a_{ij}^- & = \ln w_i^+ + \ln w_j^+ - \ln w_i^- - \ln w_j^-,
+&& i, j = 1,2,\dots,n, ~ i \neq j
+\end{align*}
+$$
+
+この関係は, 許容可能で整合している IMCM に対して成り立つ.
+
+---
+
+## 5. Elicitation and ranking of interval multiplicative weights
+
+偏差を許容することで, 許容可能な整合性をもつ IMCM に対応する.
+二乗偏差が小さいほど, 整合している IMCM に近い.
+
+この偏差を用いて, 許容可能な IMCM $\bar{A} = (\bar{a}_{ij}) = ([ a^-_{ij}, a^+_{ij}])$ から区間重みを求める.
+
+$$
+\begin{align*}
+\mathrm{minimize} ~~ & ~~
+J_1 = \sum_{i = 1}^n \sum_{j = 1, ~ j \neq i}^n \left( \ln a_{ij}^- + \ln a_{ij}^+ - \ln w_i^- - \ln w_i^+ + \ln w_j^- + \ln w_j^+ \right)^2,
+&& (5.9) \\
+\mathrm{minimize} ~~ & ~~
+J_2 = \sum_{i = 1}^n \sum_{j = 1, ~ j \neq i}^n \left( \ln a_{ij}^+ - \ln a_{ij}^- - \ln w_i^+ - \ln w_j^+ + \ln w_i^- + \ln w_j^- \right)^2,
+&& (5.10) \\
+\text{subject to} ~~ & ~~
+\ln w_i^+ + \sum_{j \neq i} \ln w_j^- \leq 0, ~~
+\ln w_i^- + \sum_{j \neq i} \ln w_j^+ \geq 0, \quad
+i = 1,2,\dots,n, \\ & ~~
+\ln w_i^+ + \ln w_j^+ - \ln w_i^- - \ln w_j^- \leq \ln t_\mathrm{ur}, \quad
+i, j = 1,2,\dots,n, ~ i \neq j, \\ & ~~
+\ln w_i^+ \geq \ln w_i^-, \quad
+i = 1,2,\dots,n.
+\end{align*}
+$$
+
+$t_\mathrm{ur} \geq 1$ は許容可能な不確定性比率 (IR) のしきい値である.
+
+---
+
+## 5. Elicitation and ranking of interval multiplicative weights
+
+### Theorem 5.1.
+
+$\tilde{\bar{w}} = (\tilde{\bar{w}}_i) = ([ \tilde{w}_i^-, \tilde{w}_i^+])$ を式 (5.9), (5.10), (5.11) の最適解とする.
+このとき, $\gamma \tilde{\bar{w}}$ が最適解となるような $\gamma > 0$ が存在する.
+すなわち, $\tilde{\bar{w}}$ に対して次を満たすような $\gamma > 0$ が存在する.
+
+$$
+\gamma^n \tilde{w}_i^+ \prod_{j \neq i} \tilde{w}_j^- \leq 1, ~~
+\gamma^n \tilde{w}_i^- \prod_{j \neq i} \tilde{w}_j^+ \geq 1, \quad
+i = 1,2,\dots,n
+$$
+
+---
+
+## 5. Elicitation and ranking of interval multiplicative weights
+
+式 (5.9), (5.10), (5.11) の解は非唯一なので, (5.11) に $\prod_{i=1}^n \sqrt{w_i^- w_i^+} = 1$ という制約を加える.
+$\ln w_i^\mathrm{gm} = \frac{1}{2} \left( \ln w_i^- + \ln w_i^+ \right)$ とする.
+
+$$
+\begin{align*}
+& \begin{aligned}
+  \mathrm{minimize} ~~ & ~~
+  J_1 = 4 \sum_{i = 1}^n \sum_{j = 1, ~ j \neq i}^n \left( \ln \sqrt{ a_{ij}^- a_{ij}^+ } - \ln w_i^\mathrm{gm} - \ln w_j^\mathrm{gm} \right)^2, \\
+  \text{subject to} ~~ & ~~
+  \prod_{i=1}^n w_i^\mathrm{gm} = 1, \\ & ~~
+  w_i^\mathrm{gm} \geq \epsilon, \quad
+  i = 1,2,\dots,n.
+\end{aligned}
+&& (5.15)
+\\
+& \begin{aligned}
+  \mathrm{minimize} ~~ & ~~
+  J_2 = \sum_{i = 1}^n \sum_{j = 1, ~ j \neq i}^n \left( \ln a_{ij}^+ - \ln a_{ij}^- - \ln w_i^+ - \ln w_j^+ + \ln w_i^- + \ln w_j^- \right)^2, \\
+  \text{subject to} ~~ & ~~
+  \ln w_i^+ + \sum_{j \neq i} \ln w_j^- \leq 0, ~~
+  \ln w_i^- + \sum_{j \neq i} \ln w_j^+ \geq 0, \quad
+  i = 1,2,\dots,n, \\ & ~~
+  \ln w_i^+ + \ln w_j^+ - \ln w_i^- - \ln w_j^- \leq \ln t_\mathrm{ur}, \quad
+  i, j = 1,2,\dots,n, ~ i \neq j, \\ & ~~
+  \ln w_i^- + \ln w_i^+ = 2 \ln w_i^\mathrm{gm}, \quad
+  i = 1,2,\dots,n, \\ & ~~
+  \ln w_i^+ \geq \ln w_i^-, \quad
+  i = 1,2,\dots,n.
+\end{aligned}
+&& (5.16)
+\end{align*}
+$$
+
+---
+
+## 5. Elicitation and ranking of interval multiplicative weights
+
+- 式 (5.9) の $J_1$ において上三角成分のみに注目
+- 式 (5.15) の最適化は $A^\mathrm{gm} = \left(\sqrt{ a_{ij}^- a_{ij}^+ }\right)$ に対応する重みを求める操作に等しい
+  - 式 (5.16) の $w_i^\mathrm{gm}$ を幾何平均法の重み $\left( \prod_{k=1}^n \sqrt{ a_{ik}^- a_{ik}^+ } \right)^\frac{1}{n}$ とする
+
+$$
+\begin{aligned}
+  \mathrm{minimize} ~~ & ~~
+  J = \sum_{i = 1}^n \sum_{j = i + 1}^n \left( \ln a_{ij}^+ - \ln a_{ij}^- - \ln w_i^+ - \ln w_j^+ + \ln w_i^- + \ln w_j^- \right)^2, \\
+  \text{subject to} ~~ & ~~
+  \ln w_i^+ + \sum_{j \neq i} \ln w_j^- \leq 0, ~~
+  \ln w_i^- + \sum_{j \neq i} \ln w_j^+ \geq 0, \quad
+  i = 1,2,\dots,n, \\ & ~~
+  \ln w_i^+ + \ln w_j^+ - \ln w_i^- - \ln w_j^- \leq \ln t_\mathrm{ur}, \quad
+  i, j = 1,2,\dots,n, ~ i \neq j, \\ & ~~
+  \ln w_i^- + \ln w_i^+ = \frac{1}{n} \sum_{k=1}^n \left( \ln a_{ik}^- + \ln a_{ik}^+ \right), \quad
+  i = 1,2,\dots,n, \\ & ~~
+  \ln w_i^+ \geq \ln w_i^-, \quad
+  i = 1,2,\dots,n.
+\end{aligned} \qquad (5.18)
+$$
+
+---
+
+## 5. Elicitation and ranking of interval multiplicative weights
+
+幾何平均ベースの possibility degree $P_{M}$ を定めて, 区間重み $\bar{w} = (\bar{w}_i) = ([ w_i^-, w_i^+])$ を比較する.
+
+$$
+P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right)=\frac{\max \left\{0, \ln w_{i}^{+}-\ln w_{j}^{-}\right\}-\max \left\{0, \ln w_{i}^{-}-\ln w_{j}^{+}\right\}}{\ln w_{i}^{+}-\ln w_{i}^{-}+\ln w_{j}^{+}-\ln w_{j}^{-}} \qquad (5.20)
+$$
+
+$$
+\max \left\{ 0, \ln \frac{w_i^+}{w_j^-} \right\} - \max \left\{ 0, \ln \frac{w_i^-}{w_j^+} \right\}
+= \begin{dcases}
+\ln w_{i}^{+}-\ln w_{i}^{-}+\ln w_{j}^{+}-\ln w_{j}^{-}
+& \text{if} ~~ w_i^- \geq w_j^+, \\
+\ln w_i^+ - \ln w_j^-
+& \text{if} ~~ w_i^+ > w_j^- ~ \text{and} ~ w_i^- < w_j^+, \\
+0 & \text{if} ~~ w_i^+ \leq w_j^-.
+\end{dcases}
+$$
+
+**性質**
+
+($a$) $0 \leq P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right) \leq 1$
+($b$) $P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right) + P_{M}\left(\bar{w}_{j} \geq \bar{w}_{i}\right) = 1$
+($c$) $P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right) = 1 \Leftrightarrow w_i^- \geq w_j^+$
+($d$) $P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right) = 0 \Leftrightarrow w_i^+ \leq w_j^-$
+($e$) $P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right) \geq 0.5 \Leftrightarrow \sqrt{w_i^- w_i^+} \geq \sqrt{w_j^- w_j^+}$
+
+---
+
+**証明**
+
+($f$) $P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right) + P_{M}\left(\bar{w}_{j} \geq \bar{w}_{i}\right) = 1$
+
+$$
+\begin{align*}
+P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right) + P_{M}\left(\bar{w}_{j} \geq \bar{w}_{i}\right) & = 1 \\
+\max \left\{ 0, \ln \frac{w_i^+}{w_j^-} \right\} - \max \left\{ 0, \ln \frac{w_i^-}{w_j^+} \right\} + \max \left\{ 0, \ln \frac{w_j^+}{w_i^-} \right\} - \max \left\{ 0, \ln \frac{w_j^-}{w_i^+} \right\} & = \ln w_{i}^{+}-\ln w_{i}^{-}+\ln w_{j}^{+}-\ln w_{j}^{-} \\
+\ln w_{i}^{+}-\ln w_{i}^{-}+\ln w_{j}^{+}-\ln w_{j}^{-} - \max \left\{ 0, \ln \frac{w_j^+}{w_i^-} \right\} + \max \left\{ 0, \ln \frac{w_j^-}{w_i^+} \right\}
+& = \max \left\{ 0, \ln \frac{w_i^+}{w_j^-} \right\} - \max \left\{ 0, \ln \frac{w_i^-}{w_j^+} \right\}
+\end{align*}
+$$
+
+$$
+\begin{align*}
+\max \left\{ 0, \ln \frac{w_j^+}{w_i^-} \right\} - \max \left\{ 0, \ln \frac{w_j^-}{w_i^+} \right\}
+& = \begin{dcases}
+  \ln w_{j}^{+}-\ln w_{j}^{-}+\ln w_{i}^{+}-\ln w_{i}^{-}
+  & \text{if} ~~ w_j^- \geq w_i^+, \\
+  \ln w_j^+ - \ln w_i^-
+  & \text{if} ~~ w_j^+ > w_j^- ~ \text{and} ~ w_j^- < w_i^+, \\
+  0 & \text{if} ~~ w_j^+ \leq w_i^-.
+\end{dcases} \\
+\ln w_{i}^{+}-\ln w_{i}^{-}+\ln w_{j}^{+}-\ln w_{j}^{-} - \max \left\{ 0, \ln \frac{w_j^+}{w_i^-} \right\} + \max \left\{ 0, \ln \frac{w_j^-}{w_i^+} \right\}
+& = \begin{dcases}
+  0 & \text{if} ~~ w_j^- \geq w_i^+ \\
+  \ln w_i^+ - \ln w_j^-,
+  & \text{if} ~~ w_j^+ > w_j^- ~ \text{and} ~ w_j^- < w_i^+, \\
+  \ln w_{i}^{+}-\ln w_{i}^{-}+\ln w_{j}^{+}-\ln w_{j}^{-}
+  & \text{if} ~~ w_j^+ \leq w_i^-.
+\end{dcases} \\
+& = \max \left\{ 0, \ln \frac{w_i^+}{w_j^-} \right\} - \max \left\{ 0, \ln \frac{w_i^-}{w_j^+} \right\}
+\end{align*}
+$$
+
+---
+
+($b$) $P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right) \geq 0.5 \Leftrightarrow \sqrt{w_i^- w_i^+} \geq \sqrt{w_j^- w_j^+}$
+
+$$
+\begin{align*}
+& P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right) = \frac{\max \left\{0, \ln w_{i}^{+}-\ln w_{j}^{-}\right\}-\max \left\{0, \ln w_{i}^{-}-\ln w_{j}^{+}\right\}}{\ln w_{i}^{+}-\ln w_{i}^{-}+\ln w_{j}^{+}-\ln w_{j}^{-}} \geq 0.5 \\
+\Leftrightarrow & ~~
+0.5 \left( \ln w_{i}^{+}-\ln w_{i}^{-}+\ln w_{j}^{+}-\ln w_{j}^{-} \right) \leq \begin{dcases}
+\ln w_{i}^{+}-\ln w_{i}^{-}+\ln w_{j}^{+}-\ln w_{j}^{-}
+& \text{if} ~~ w_i^- \geq w_j^+, \\
+\ln w_i^+ - \ln w_j^-
+& \text{if} ~~ w_i^+ > w_j^- ~ \text{and} ~ w_i^- < w_j^+, \\
+0 & \text{if} ~~ w_i^+ \leq w_j^-.
+\end{dcases} \\
+\Leftrightarrow & ~~
+w_i^- \geq w_j^+ ~~ \text{or} ~~
+\left( w_i^+ \geq w_j^- ~~ \text{and} ~~ 0.5 \ln (w_j^- w_j^+) \leq 0.5 \ln (w_i^- w_i^+) \right) \\
+\Leftrightarrow & ~~
+w_i^- \geq w_j^+ ~~ \text{or} ~~
+\left( w_i^+ \geq w_j^- ~~ \text{and} ~~ \sqrt{w_i^- w_i^+} \geq \sqrt{w_j^- w_j^+} \right) \\
+\Leftrightarrow & ~~
+\sqrt{w_i^- w_i^+} \geq \sqrt{w_j^- w_j^+} ~~ \text{or} ~~
+\left( w_i^+ \geq w_j^- ~~ \text{and} ~~ \sqrt{w_i^- w_i^+} \geq \sqrt{w_j^- w_j^+} \right) \quad
+\left( \because w_i^+ \geq w_i^-, ~ w_j^- \leq w_j^+ \right) \\
+\Leftrightarrow & ~~
+\sqrt{w_i^- w_i^+} \geq \sqrt{w_j^- w_j^+}
+\end{align*}
+$$
+
+---
+
+## 5. Elicitation and ranking of interval multiplicative weights
+
+次のように, 順序付けを行うことができる.
+
+1. IMCM $\bar{A}$ から式 (5.18) によって求めた区間重み $\bar{w}$ を求める
+2. $\bar{w}$ に対して式 (5.20) によって, possibility degree matrix $P = (p_{ij}) = (P_{M}(\bar{w}_i \geq \bar{w}_j))$ を定める
+3. $\xi_i = \sum_{j = 1}^n p_{ij}$ とする
+4. $x_i$ が $x_j$ よりも優れていることを $\xi_i \stackrel{P_{M}\left(\bar{\omega}_{i}^{*} \geq \bar{\omega}_{j}^{*}\right)}{\succeq} \xi_j$ と書く
+
+---
+
+## 6. Numerical examples
+
+### Example 2.
+
+次の IMCM $\bar{A}_{2}$ を考える.
+
+$$
+\begin{aligned}
+\bar{A}_{2} & =\left(\bar{a}_{i j}\right)_{4 \times 4}=\left(\left[a_{i j}^{-}, a_{i j}^{+}\right]\right)_{4 \times 4} \\
+& =\left[\begin{array}{cccc}
+1 & {[2,5]} & {[2,4]} & {[1,3]} \\
+{[1 / 5,1 / 2]} & 1 & {[1,3]} & {[1,2]} \\
+{[1 / 4,1 / 2]} & {[1 / 3,1]} & 1 & {[1 / 2,1]} \\
+{[1 / 3,1]} & {[1 / 2,1]} & {[1,2]} & 1
+\end{array}\right]
+\end{aligned}
+$$
+
+不確定性比率 (IR) のしきい値を $t_\mathrm{ur} = 3$ とする.
+
+$\mathrm{IR}(\bar{a}_{i j})\leq t_{ur}$ で, $\mathrm{CR} \left(A_{2}^\mathrm{gm} \right) = 0.0981 < 0.1$ であることから, $\bar{A}_{2}$ は許容可能である.
+
+式 (5.18) で区間重み $\bar{w}^{*}$ を求める.
+
+$$
+\bar{w}^{*} = \left( \bar{w}_i^* \right)
+=([1.5540,2.5329],[0.7348,1.1977],[0.5105,0.7442],[0.7219,1.0525])
+$$
+
+---
+
+式 (5.20) から, possibility degree matrix $P$ を計算する.
+
+$$
+P=\left[\begin{array}{cccc}0.5 & 1 & 1 & 1 \\ 0 & 0.5 & 0.9853 & 0.5849 \\ 0 & 0.0147 & 0.5 & 0.0404 \\ 0 & 0.4151 & 0.9596 & 0.5\end{array}\right]
+$$
+
+$P$ から, $\xi_{1}=3.5, \xi_{2}=2.0702, \xi_{3}=0.5551, \xi_{4}= 1.8747$ が得られる.
+順序付けは $\bar{w}_{1}^{*} \stackrel{1}{\succ} \bar{w}_{2}^{*} \stackrel{0.5849}{\succ} \bar{w}_{4}^{*} \stackrel{0.9596}{\succ}  \bar{w}_{3}^{*}$ となる.
+
+これは Lui (2009) や Wang et al. (2005a) と同じ結果である.
+
+---
+
+$\bar{A}_2$ の不確定性指数 (\mathrm{II}) は, $\mathrm{II}(\bar{A}_2) = 2.3762$ である.
+
+$\bar{A}_2^* = (\bar{w}_i^* / \bar{w}_j^*)$ とする.
+この行列の不確定性指数 (\mathrm{II}) と元の行列 $\bar{A}_2$ との類似度 ($\mathrm{DR}(\bar{A}_2, *)$) を計算する.
+
+$$
+\mathrm{II}(\bar{A}_2^*) = 2.3763, ~~
+\mathrm{DR}(\bar{A}_2, \bar{A}_2^*) = 1.2291
+$$
+
+Lui (2009) や Wang et al. (2005a) の方法で得られる重みから同様に構成した行列 $\bar{A}^\mathrm{Liu}, \bar{A}^\mathrm{Wang}$ についても, $\mathrm{II}$ と $\mathrm{DR}(\bar{A}_2, *)$ を計算する.
+
+$$
+\mathrm{II}(\bar{A}^\mathrm{Liu}) = 2.2671, ~~
+\mathrm{DR}(\bar{A}_2, \bar{A}^\mathrm{Liu}) = 1.3307
+$$
+
+$$
+\mathrm{II}(\bar{A}^\mathrm{Wang}) = 2.2809, ~~
+\mathrm{DR}(\bar{A}_2, \bar{A}^\mathrm{Wang}) = 1.2535
+$$
+
+不確定性指数 ($\mathrm{II}$) は, $\bar{A}_2^*$ が最も小さい値をとる. これは, $\bar{A}_2^*$ が最も区間の幅が小さい, 明確な結果を与えることを意味する.
+
+また, $\mathrm{DR}(\bar{A}_2, *)$ は, $\bar{A}_2^*$ が最も小さい値をとる. これは, $\bar{A}_2^*$ が最も $\bar{A}_2$ に近いことを意味する.
+
+この例では, $\bar{A}_2^*$ が最もよく意思決定者の不確定な判断を捉えていると考えられる.
+
+---
+
+## 6. Numerical examples
+
+### Example 3.
+
+3 人のエキスパートがそれぞれ IMCM を与える.
+エキスパートの重みは $\alpha = (\alpha_i) = (0.25, 0.35, 0.40)$ である.
+
+$$
+\tilde{A}^{(1)} = 
+\left[
+\begin{array}{ccc}
+1 & [5/3, 2] & [4/3, 3] & [5/6, 3/2] \\
+\left[1/2, 3/5\right] & 1 & [1/3, 4/7] & [1, 3] \\
+\left[1/3, 3/4\right] & [1/3, 1] & 1 & [3/2, 2] \\
+\left[2/3, 6/5\right] & [1/2, 2/3] & [1, 1] & 1 \\
+\end{array}
+\right]
+$$
+
+$$
+\tilde{A}^{(2)} = 
+\left[
+\begin{array}{ccc}
+1 & [1/3, 4/5] & [4/3, 8/3] & [3/2, 7/2] \\
+\left[5/4, 3\right] & 1 & [7/3, 4] & [4, 6] \\
+\left[3/8, 3/4\right] & [1/4, 3/7] & 1 & [1, 2] \\
+\left[2/7, 2/3\right] & [1/6, 1/4] & [1/2, 1] & 1 \\
+\end{array}
+\right]
+$$
+
+$$
+\tilde{A}^{(3)} = 
+\left[
+\begin{array}{ccc}
+1 & [2, 3] & [3/2, 5/2] & [3, 5] \\
+\left[1/3, 1/2\right] & 1 & [3/2, 7/2] & [2, 3] \\
+\left[2/5, 2/3\right] & [2/7, 2/3] & 1 & [3/2, 2] \\
+\left[1/5, 1/3\right] & [1/3, 1/2] & [1/2, 2/3] & 1 \\
+\end{array}
+\right]
+$$
+
+---
+
+不確定性比率 (IR) のしきい値を $t_\mathrm{ur} = 3$ とする.
+$\mathrm{IR}(a_{ij}^{(l)}) \leq t_\mathrm{ur}, ~ i,j = 1,2,3,4, ~ l = 1,2,3$ であり, $\mathrm{CR} \left(A^{(1)\mathrm{gm}}\right) = 0.0858,$ $\mathrm{CR} \left(A^{(2)\mathrm{gm}}\right) = 0.0018,$ $\mathrm{CR} \left(A^{(3)\mathrm{gm}}\right) = 0.0521$ であることから, $\tilde{A}^{(1)}, \tilde{A}^{(2)}, \tilde{A}^{(3)}$ は許容可能である.
+
+$\tilde{A}^{(1)}, \tilde{A}^{(2)}, \tilde{A}^{(3)}$ を結合したグループの IMCM $\bar{A}^\mathrm{G}$ は次のようになる.
+
+$$
+\bar{A}^{G}=\left[\begin{array}{cccc}
+1 & {[1.0206,1.7068]} & {[1.3976,2.6764]} & {[1.7088,4.4132]} \\
+{[0.5859,0.9798]} & 1 & {[1.8196,3.5288]} & {[2.1435,3.8237]} \\
+{[0.3736,0.7155]} & {[0.2834,0.6463]} & 1 & {[1.3015,2.0000]} \\
+{[0.3074,0.5852]} & {[0.2615,0.4665]} & {[0.5000,0.7683]} & 1
+\end{array}\right]
+$$
+
+$\bar{A}^{G}$ からは式 (5.18) によって区間重み $\bar{w}^{*} = ( [1.3151,2.0132], [1.3532,1.7325], [0.6855,0.8716], [0.4625,0.6551] )$ が得られる.
+
+$\bar{w}^{*}$ から式 (5.20) によって次の possibility degree matrix $P$ が得られる.
+
+$P=\left[\begin{array}{cccc}0.5 & 0.5904 & 1 & 1 \\ 0.4096 & 0.5 & 1 & 1 \\ 0 & 0 & 0.5 & 1 \\ 0 & 0 & 0 & 0.5\end{array}\right]$
+
+$\xi_{1}=3.0904, \xi_{2}=2.9096, \xi_{3}=1.5, \xi_{4}=0.5$ なので, 順序付けは $c_1 \stackrel{0.5904}{\succ} c_2 \stackrel{1}{\succ} c_3 \stackrel{1}{\succ} c_4$ となる.
+
+---
+
+## 7. Conclusions
+
+- Liu (2009) で提案された IMCM の許容可能な整合性の定義が代替案の置換に影響されることを示した
+- 区間の推移性に基づく整合性を定義した
+- IMCM の整合性と不確定性指数を用いて, 許容可能な IMCM を定義した
+- 許容可能な IMCM から区間重みを求める方法を提案した
+- 区間重みを用いて, IMCM の順序付けを行う方法を提案した
+  - 幾何平均に基づく possibility degree を用いた
+
+- 課題
+  - 不完全な IMCM への対応
+  - グループ意思決定における合意形成のプロセスに対応する拡張
