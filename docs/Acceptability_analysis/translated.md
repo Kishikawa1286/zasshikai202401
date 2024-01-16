@@ -602,35 +602,11 @@ $$
 \text { s.t. } \begin{cases}\ln w_{i}^{+}+\sum_{\substack{j=1 \\ j \neq i}}^{n} \ln w_{j}^{-} \leq 0, & \\ \ln w_{i}^{-}+\sum_{\substack{j=1 \\ j \neq i}}^{n} \ln w_{j}^{+} \geq 0, & i=1,2, \ldots, n \\ 0<w_{i}^{-}, \quad \ln w_{i}^{-} \leq \ln w_{i}^{+}, & i=1,2, \ldots, n \\ \ln w_{i}^{-}+\ln w_{i}^{+}=\frac{1}{n} \sum_{k=1}^{n}\left(\ln a_{i k}^{-}+\ln a_{i k}^{+}\right), & i=1,2, \ldots, n \\ \ln w_{i}^{+}+\ln w_{j}^{+}-\ln w_{i}^{-}-\ln w_{j}^{-} \leq \ln t_{u r} . & i<j\end{cases}
 $$
 
-対応リストを参考にしながら、与えられた文章を日本語に翻訳します。
-
-## 対応リスト
-"""
-
-decision analysis: 意思決定分析
-interval: 区間
-multiplicative: 乗法的
-comparison matrix: 比較行列
-consistency: 整合性
-acceptability: 許容可能性
-inconsistency: 不整合性
-pairwise comparison: 一対比較
-indeterminancy: 不確定性
-
-"""
-
-## 文書
-"""
-
-
 (5.18)を解くことで、最適な区間乗法的重みベクトル$\bar{w}^{*}=\left(\bar{w}_{1}^{*}, \bar{w}_{2}^{*}, \ldots, \bar{w}_{n}^{*}\right)^{T}=$ $\left(\left[w_{1}^{-*}, w_{1}^{+*}\right],\left[w_{2}^{-*}, w_{2}^{+*}\right], \ldots,\left[w_{n}^{-*}, w_{n}^{+*}\right]\right)^{T}$が求まる。
 
 もし$\bar{A}=\left(\bar{a}_{i j}\right)_{n \times n}=\left(\left[a_{i j}^{-}, a_{i j}^{+}\right]\right)_{n \times n}$の全ての区間比較が明確な比率値に簡約される場合、つまり$a_{i j}^{-}=a_{i j}^{+}, \forall i, j=1,2, \ldots, n$の場合、$\bar{A}$は明確な比較行列$A=\left(a_{i j}^{-}\right)_{n \times n}$に簡約されます。この場合、任意の$t_{u r} \geq 1$に対して、目的関数(5.18)の最適値はゼロになり、最適解$w_{i}^{-*}=w_{i}^{+*}=\left(\prod_{k=1}^{n} a_{i k}^{-}\right)^{1 / n}(i=$ $1,2, \ldots, n)$が得られ、CrawfordとWilliams（1985）の幾何平均手法と同じ結果が得られます。
 
 以下のようにおく。
-
-
-"""
 
 $$
 \bar{a}_{i j}^{*}=\left[a_{i j}^{-*}, a_{i j}^{+*}\right]= \begin{cases}{[1,1]} & i=j \\ {\left[\frac{w_{i}^{-*}}{w_{j}^{+*}}, \frac{w_{i}^{*+}}{w_{j}^{-*}}\right]} & i \neq j\end{cases}
@@ -648,31 +624,7 @@ $$
 \bar{w}_{i}>0, \bar{w}_{j}>0
 $$
 
-与エイを日本語に翻訳してください。
-翻訳する際は、Word Correspondence Listの単語に注意してください。
-名前と場所名は、元の言語のままでください。
-**翻訳されたテキストをMarkdownコードブロックで囲まないでください。**
-
-## Word Correspondence List
-"""
-
-decision analysis: 決定分析
-interval: 区間
-multiplicative: 乗法的
-comparison matrix: 比較行列
-consistency: 一貫性
-acceptability: 受容性
-inconsistency: 不一致
-pairwise comparison: ２項比較
-indeterminancy: 不確実性
-
-"""
-
-## Document
-"""
-
-
-$P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right)$が以下の性質を満たすことが明らかです。
+$P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right)$ が以下の性質を満たすことが明らかです。
 
 (a) $0 \leq P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right) \leq 1$;
 
@@ -701,8 +653,6 @@ $P_{M}\left(\bar{w}_{i} \geq \bar{w}_{j}\right)$が以下の性質を満たす�
 次に、提案されたモデルの妥当性と適用性を示すために、２つの数値例を紹介します。
 
 **例２．** Liu（2009）とWang et al.（2005a）の研究で検証された次のIMCM $\bar{A}_{2}$を考えます。
-
-"""
 
 $$
 \begin{aligned}
